@@ -3,6 +3,7 @@ import {createHandControl} from './camera.js?v=5';
 
 const $=id=>document.getElementById(id);
 const ui={welcome:$('welcome'),hud:$('mission-hud'),result:$('result'),camera:$('camera-card')};
+const sidebar=document.createElement('div');sidebar.id='mission-sidebar';sidebar.append(document.querySelector('.mission-title'),$('experiment'),document.querySelector('.mission-controls'));$('mission-hud').append(sidebar);
 const reduced=matchMedia('(prefers-reduced-motion: reduce)').matches;
 let state=freshMission(),mode='pointer',desired=-.6,scene,last=performance.now(),time=0,resultTimer=0,armedHold=0;
 let soundOn=false,audioContext=null,noticeTimer,lastSystem=0,lastTone=0,cameraBusy=false,cameraGeneration=0;
