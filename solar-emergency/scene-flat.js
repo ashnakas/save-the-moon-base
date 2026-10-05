@@ -1,5 +1,5 @@
 // Interactive Canvas fallback for computers where WebGL is unavailable.
-export function createFlatScene(host){
+export function createFlatScene(host,{preview=false}={}){
   const canvas=document.createElement('canvas');host.append(canvas);canvas.setAttribute('aria-hidden','true');const c=canvas.getContext('2d');
   if(!c)throw new Error('Canvas is unavailable');let w=0,h=0;const TAU=Math.PI*2;
   const observer=new ResizeObserver(()=>{w=host.clientWidth;h=host.clientHeight;const d=Math.min(devicePixelRatio,1.5);canvas.width=w*d;canvas.height=h*d;c.setTransform(d,0,0,d,0,0);});observer.observe(host);
@@ -9,7 +9,7 @@ export function createFlatScene(host){
   return {
     sunAngle(t,phase){return .06+Math.sin((phase==='idle'||phase==='armed'?0:t)*.16)*.46;},
     update(state,time,dt,reduced){
-      const mobile=w<650;const scale=mobile?w/500:Math.min(w/1400,h/900),x=mobile?w*.53:w*.71,y=mobile?h*.52:h*.67;
+      const mobile=w<650;const scale=preview?Math.min(w/650,h/330):mobile?w/500:Math.min(w/1400,h/900),x=preview?w*.58:mobile?w*.53:w*.71,y=preview?h*.5:mobile?h*.52:h*.67;
       const target=this.sunAngle(state.elapsed,state.phase),power=state.power/100;
       c.clearRect(0,0,w,h);let sky=c.createLinearGradient(0,0,0,h);sky.addColorStop(0,'#06111f');sky.addColorStop(1,'#142739');c.fillStyle=sky;c.fillRect(0,0,w,h);
       for(let i=0;i<180;i++){const sx=((i*197.31)%1000)/1000*w,sy=((i*103.71)%1000)/1000*h*.6;ellipse(sx,sy,i%3?1:.6,i%3?1:.6,'#7b97b277');}
