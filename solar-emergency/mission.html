@@ -6,13 +6,13 @@
   <title>Save the Moon Base · Solar Emergency</title>
   <meta name="description" content="A hands-on lunar mission. Move your hand to aim a solar array and bring a Moon base back to life.">
   <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='16' fill='%23071321'/%3E%3Ccircle cx='32' cy='32' r='20' fill='%23f5cc62'/%3E%3Ccircle cx='40' cy='25' r='18' fill='%23071321'/%3E%3C/svg%3E">
-  <link rel="stylesheet" href="style.css?v=5">
+  <link rel="stylesheet" href="style.css?v=6">
 </head>
 <body>
   <main id="experience">
     <div id="scene" tabindex="0" aria-label="Lunar solar mission. Move left and right, or use arrow keys, to tilt the solar panel."></div>
     <div class="vignette" aria-hidden="true"></div>
-    <header>
+    <header><a class="mission-back" href="../">← MISSION SELECT</a>
       <a class="brand" href="../" aria-label="Choose a mission"><span class="brand-mark" aria-hidden="true">◒</span><span>SAVE THE<br><strong>MOON BASE</strong></span></a>
       <div class="mission-id">SIMULATION 01 <span>//</span> SOLAR ARRAY</div>
       <div class="tools"><button id="sound" aria-pressed="false" aria-label="Turn sound on">Sound off</button><button id="fullscreen" aria-label="Enter full screen">Full screen</button></div>
@@ -21,10 +21,8 @@
     <section id="welcome" class="intro" aria-labelledby="intro-title">
       <p class="eyebrow"><span class="alert-dot"></span> LUNAR OUTPOST // SYSTEM FAILURE</p>
       <h1 id="intro-title">POWER<br><em>FAILURE.</em></h1>
-      <p class="fault-count">3 SYSTEMS OFFLINE</p><div class="fault-list"><span>01 LIGHTS</span><span>02 COMMS</span><span>03 HABITAT</span></div><p class="intro-copy">Aim the solar array at the Sun.<br>Test two angles. Then restore the outpost.</p><div class="objective-diagram" aria-label="Sunlight powers the solar array, which powers the outpost"><span class="sun-symbol">☼</span><span class="diagram-line"></span><span class="array-symbol">▦</span><span class="diagram-line"></span><span class="base-symbol">⌂</span><small>SUN</small><small>ARRAY</small><small>OUTPOST</small></div>
-      <div class="start-actions"><div class="input-label">SELECT CONTROL INPUT</div><div class="camera-option"><button id="camera-start">ENABLE CAMERA</button><span>OPEN HAND · MOVE LEFT / RIGHT</span></div><div class="pointer-option"><span>MOUSE / TOUCH <b>← →</b></span><button id="pointer-start" class="primary">TEST THE ARRAY →</button></div></div>
-      <p class="privacy">Camera processing stays on this device. No recording.</p>
-      <a class="explore-link" href="explore/">MISSION 02 // EXPLORE GATEWAY →</a>
+      <p class="fault-count">3 SYSTEMS OFFLINE</p><div class="fault-list"><span>01 LIGHTS</span><span>02 COMMS</span><span>03 HABITAT</span></div><p class="intro-copy">Aim the array. Compare two angles. Restore power.</p><div class="objective-diagram" aria-label="Sunlight powers the solar array, which powers the outpost"><span class="sun-symbol">☼</span><span class="diagram-line"></span><span class="array-symbol">▦</span><span class="diagram-line"></span><span class="base-symbol">⌂</span><small>SUN</small><small>ARRAY</small><small>OUTPOST</small></div>
+      <div class="start-actions"><div class="input-label">CHOOSE YOUR CONTROLS</div><div class="input-options"><button id="camera-start">USE HAND CONTROL</button><button id="pointer-start" class="primary">USE MOUSE / TOUCH</button></div><p class="input-hint">Hand: move left or right. Mouse / touch: drag the slider.</p></div><p class="privacy">Camera optional. No recording.</p>
       <p class="setup-note" id="setup-note" role="status"></p>
     </section>
 
@@ -33,16 +31,16 @@
       <div class="telemetry"><div class="battery-head"><span>STORED POWER</span><strong id="power-value">0<span>%</span></strong></div><div class="battery-track" role="progressbar" aria-label="Stored base power" aria-valuemin="0" aria-valuemax="100" aria-valuenow="0" id="battery"><div id="power-fill"></div></div><div class="systems"><span id="sys1">LIGHTS <b>OFFLINE</b></span><span id="sys2">COMMS <b>OFFLINE</b></span><span id="sys3">HABITAT <b>OFFLINE</b></span></div></div>
       <div class="clock"><span id="clock-label">BACKUP POWER</span><strong id="timer">45</strong><span id="clock-unit">SECONDS REMAINING</span></div><div class="solar-output"><span>SOLAR OUTPUT NOW</span><strong id="output-value">0%</strong><div class="output-track"><div id="output-fill"></div></div><small id="output-note">OF MAXIMUM · SIMULATED</small><p id="charge-rate">0.0% stored / second</p></div><div id="experiment" hidden><p class="experiment-question">Can another angle collect more sunlight?</p><div class="sample-row"><span>POSITION A <small id="sample-a-angle"></small></span><strong id="sample-a">—</strong></div><div class="sample-row"><span>POSITION B <small id="sample-b-angle"></small></span><strong id="sample-b">—</strong></div><p id="experiment-note" role="status">Move the array, then save a second position.</p><div class="experiment-actions"><button id="save-angle">SAVE POSITION B</button><button id="launch-mission" class="primary" disabled>BEGIN MISSION →</button></div></div>
       <div id="alignment-card" class="alignment-instrument"><span id="lock-label">ARRAY ANGLE</span><strong id="alignment-value">0%</strong><div class="alignment-track"><span id="target-marker" title="Sun direction"></span><span id="panel-marker" title="Your panel"></span></div><div class="marker-legend"><span><i class="sun-key"></i>SUN DIRECTION</span><span><i class="panel-key"></i>YOUR PANEL</span></div><p id="direction-hint">MOVE RIGHT</p><label class="sr-only" for="tilt">Solar panel tilt</label><input id="tilt" type="range" min="-0.8" max="0.8" step="0.01" value="-0.6" aria-label="Solar panel tilt"></div>
-      <div class="mission-controls"><button id="switch-control">ENABLE CAMERA</button><button id="restart">RESET</button><button id="exit">EXIT</button></div>
+      <div class="mission-controls"><button id="switch-control">ENABLE CAMERA</button><button id="restart">RESET</button><button id="exit">MISSION SELECT</button></div>
     </section>
 
     <aside id="camera-card" hidden aria-label="Webcam hand control"><div class="camera-view"><video id="video" autoplay muted playsinline></video><canvas id="hand-overlay"></canvas><span id="tracking-label">Looking for your hand</span></div><p id="camera-tip">Show one open hand. Move it left and right.</p><button id="stop-camera">DISCONNECT CAMERA</button></aside>
     <div id="announcement" class="announcement" role="status" aria-live="polite"></div>
-    <section id="result" class="result" hidden aria-labelledby="result-title"><p class="eyebrow" id="result-eyebrow">RESTORATION COMPLETE</p><h2 id="result-title">OUTPOST<br><em>ONLINE.</em></h2><p id="result-copy">LIGHTS / COMMS / HABITAT — RESTORED</p><div class="fact"><span>WHAT YOUR EXPERIMENT SHOWED</span><p id="learning-result">Facing the Sun gives the array its highest output.</p><span>INSIDE GVIS // TEST IDEAS VISUALLY</span><p>You changed a design in a virtual environment and saw the result. GVIS builds visual tools that help NASA scientists and engineers explore designs and understand data.</p><small>Independent prototype. Simplified sunlight model; no lunar survey or mission data.</small></div><button id="again" class="primary">RUN AGAIN →</button><p id="reset-countdown" class="reset-countdown"></p></section>
-    <footer><span>SAVE THE MOON BASE <i></i> SOLAR EMERGENCY</span><span>Independent outreach prototype · Ashna Kasireddy</span></footer>
+    <section id="result" class="result" hidden aria-labelledby="result-title"><p class="eyebrow" id="result-eyebrow">RESTORATION COMPLETE</p><h2 id="result-title">OUTPOST<br><em>ONLINE.</em></h2><p id="result-copy">LIGHTS / COMMS / HABITAT — RESTORED</p><div class="fact"><span>WHAT YOUR EXPERIMENT SHOWED</span><p id="learning-result">Facing the Sun gives the array its highest output.</p><span>INSIDE GVIS // TEST IDEAS VISUALLY</span><p>You changed a design in a virtual environment and saw the result. GVIS builds visual tools that help NASA scientists and engineers explore designs and understand data.</p><small>Independent prototype. Simplified sunlight model; no lunar survey or mission data.</small></div><div class="result-actions"><button id="again" class="primary">TRY AGAIN</button><a href="../" class="mission-link">CHOOSE ANOTHER MISSION →</a></div><p id="reset-countdown" class="reset-countdown"></p></section>
+    <footer><span>SAVE THE MOON BASE <i></i> SOLAR EMERGENCY</span><span>Independent prototype · Ashna Kasireddy</span></footer>
     <div id="loading" class="loading" role="status">INITIALIZING OUTPOST…</div>
     <noscript><p class="loading">Enable JavaScript to play this mission.</p></noscript>
   </main>
-  <script type="module" src="app.js?v=6"></script>
+  <script type="module" src="app.js?v=7"></script>
 </body>
 </html>
