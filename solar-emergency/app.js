@@ -1,5 +1,5 @@
-import {freshMission,stepMission,LIMIT} from './mission.js';
-import {createHandControl} from './camera.js';
+import {freshMission,stepMission,LIMIT} from './mission.js?v=2';
+import {createHandControl} from './camera.js?v=2';
 
 const $=id=>document.getElementById(id);
 const ui={welcome:$('welcome'),hud:$('mission-hud'),result:$('result'),camera:$('camera-card')};
@@ -64,4 +64,4 @@ function frame(now){const dt=Math.min(.06,(now-last)/1000);last=now;if(document.
   if(state.locked&&state.phase==='playing'&&soundOn&&time-lastTone>1.2){lastTone=time;tone(330+state.power*3,.08,.018);}
   updateUI(target);scene.update(state,time,dt,reduced);requestAnimationFrame(frame);
 }
-try{const {createScene}=await import('./scene.js');try{scene=createScene($('scene'));}catch{$('scene').replaceChildren();const {createFlatScene}=await import('./scene-flat.js');scene=createFlatScene($('scene'));}$('loading').hidden=true;show('welcome');requestAnimationFrame(frame);}catch(error){console.error(error);$('loading').innerHTML='This browser could not start the 3D scene.<br>Try Chrome or Edge with hardware acceleration enabled.';}
+try{const {createScene}=await import('./scene.js?v=2');try{scene=createScene($('scene'));}catch{$('scene').replaceChildren();const {createFlatScene}=await import('./scene-flat.js?v=2');scene=createFlatScene($('scene'));}$('loading').hidden=true;show('welcome');requestAnimationFrame(frame);}catch(error){console.error(error);$('loading').innerHTML='This browser could not start the 3D scene.<br>Try Chrome or Edge with hardware acceleration enabled.';}
