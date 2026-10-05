@@ -38,7 +38,7 @@ $('pointer-start').addEventListener('click',()=>startExperiment('pointer'));
 $('camera-start').addEventListener('click',()=>enableCamera(true));
 $('switch-control').addEventListener('click',()=>mode==='webcam'?usePointer():enableCamera());
 $('stop-camera').addEventListener('click',usePointer);
-$('restart').addEventListener('click',()=>state.phase==='experiment'?startExperiment(mode):startGame(mode));$('exit').addEventListener('click',home);
+$('restart').addEventListener('click',()=>state.phase==='experiment'?startExperiment(mode):startGame(mode));$('exit').addEventListener('click',()=>{cancelCameraSetup();location.href='../';});
 $('again').addEventListener('click',()=>{if(mode==='webcam'&&!hand.ready){home();return;}startGame(mode);});
 $('sound').addEventListener('click',()=>{soundOn=!soundOn;$('sound').textContent=soundOn?'SOUND ON':'SOUND OFF';$('sound').setAttribute('aria-pressed',soundOn);tone();});
 $('fullscreen').addEventListener('click',async()=>{try{if(document.fullscreenElement)await document.exitFullscreen();else await $('experience').requestFullscreen();}catch{announce('Full screen is unavailable in this browser.');}});
