@@ -9,7 +9,8 @@ export function stepMission(state, dt, sunAngle, inputActive = true) {
   state.elapsed += dt;
   state.alignment = alignmentFor(state.angle, sunAngle);
   const error = Math.abs(state.angle - sunAngle);
-  const chargeRate = error < 0.16 ? 5.5 : error < 0.35 ? 2.2 : 0;
+  // Simplified angle-of-incidence model: maximum output when the panel faces the Sun.
+  const chargeRate = 5.5 * state.alignment;
   state.power = Math.min(100, state.power + chargeRate * dt);
   state.locked = error < 0.16;
   if (state.power >= 100) state.phase = 'success';

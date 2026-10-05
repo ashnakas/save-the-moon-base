@@ -85,9 +85,9 @@ export function createScene(host) {
     sunAngle(t,phase){return .06+Math.sin((phase==='idle'||phase==='armed'?0:t)*.16)*.46;},
     update(state,time,dt,reduced){const target=this.sunAngle(state.elapsed,state.phase);sun.position.set(-3.1+Math.tan(target)*6.9,9,1.1);sunLight.position.copy(sun.position);panelRoot.rotation.z=-state.angle;
       const energized=state.phase==='success'?1:state.power/100;windowMats.forEach((m,i)=>{m.emissiveIntensity=energized>(i%3)*.3?energized*2.2:0;});baseLight.intensity=energized*6;ring.material.emissiveIntensity=.15+energized*2;
-      beaconMat.emissiveIntensity=state.phase==='success'?0.15:.5+.5*Math.sin(time*4);beamMat.opacity=state.locked?.45:.08;
-      rays.forEach((ray,i)=>{const p=ray.geometry.attributes.position;p.setXYZ(0,sun.position.x+(i-2)*.12,9,1.1);p.setXYZ(1,-3.1+(i-2)*.55,2.1,1.1);p.needsUpdate=true;});
-      energyOrbs.forEach((o,i)=>{o.visible=state.phase==='playing'&&state.alignment>.94||state.phase==='success';o.position.copy(cableCurve.getPoint((time*(reduced?.08:.27)+i/16)%1));});
+      beaconMat.emissiveIntensity=state.phase==='success'?0.15:.5+.5*Math.sin(time*4);beamMat.opacity=.15+state.alignment*.4;
+      panelRoot.updateMatrixWorld(true);rays.forEach((ray,i)=>{const hit=panelRoot.localToWorld(new THREE.Vector3((i-2)*.55,.1,0));const p=ray.geometry.attributes.position;p.setXYZ(0,hit.x+Math.tan(target)*(9-hit.y),9,hit.z);p.setXYZ(1,hit.x,hit.y,hit.z);p.needsUpdate=true;});
+      energyOrbs.forEach((o,i)=>{o.visible=state.phase==='playing'&&state.alignment>.05||state.phase==='success';o.position.copy(cableCurve.getPoint((time*(reduced?.08:.27*Math.max(.1,state.alignment))+i/16)%1));});
       if(state.phase==='success'&&!previousSuccess){burstTime=0;confetti.visible=!reduced;for(let i=0;i<240;i++)confPos.set([2.6,1.5,-.6],i*3);}
       previousSuccess=state.phase==='success';if(!previousSuccess)confetti.visible=false;if(confetti.visible){burstTime+=dt;for(let i=0;i<240;i++){confPos[i*3]+=velocities[i].x*dt;confPos[i*3+1]+=velocities[i].y*dt-dt*burstTime*2.5;confPos[i*3+2]+=velocities[i].z*dt;}confettiGeo.attributes.position.needsUpdate=true;confetti.material.opacity=Math.max(0,1-burstTime/5);if(burstTime>5)confetti.visible=false;}
       arm.rotation.z=state.phase==='success'?2.6+(reduced?0:Math.sin(time*5)*.3):-.15;earth.rotation.y=reduced?0:time*.018;

@@ -18,7 +18,7 @@ export function createFlatScene(host){
       const px=x-190*scale,py=y-50*scale,sx=px+Math.tan(target)*240*scale,sy=py-240*scale;
       let glow=c.createRadialGradient(sx,sy,2,sx,sy,95*scale);glow.addColorStop(0,'#ffe09e88');glow.addColorStop(1,'#ffd36e00');c.fillStyle=glow;c.fillRect(sx-100*scale,sy-100*scale,200*scale,200*scale);ellipse(sx,sy,30*scale,30*scale,'#f5d08a');
       // Sunlight lands on the rotating face, then energy follows the cable into the base.
-      for(let i=-2;i<=2;i++)segment([sx+i*4*scale,sy+30*scale],[px+i*22*scale,py],state.locked?'#f5cc6290':'#f5cc621e',1.3*scale);
+      for(let i=-2;i<=2;i++){const dx=i*22*scale,hx=px+dx*Math.cos(state.angle),hy=py+dx*Math.sin(state.angle);segment([hx+Math.tan(target)*(hy-sy),sy+30*scale],[hx,hy],'rgba(245,204,98,'+(.18+state.alignment*.4)+')',1.3*scale);}
       ellipse(x,y+82*scale,150*scale,35*scale,'#253e4e');ellipse(x,y+78*scale,150*scale,35*scale,'#536778');c.beginPath();c.ellipse(x,y+78*scale,140*scale,30*scale,0,0,TAU);c.strokeStyle=power>.25?'#80efc9':'#82959f';c.lineWidth=2*scale;c.stroke();
       c.beginPath();c.moveTo(px,py+95*scale);c.bezierCurveTo(px+40*scale,py+130*scale,x-110*scale,y+85*scale,x-55*scale,y+45*scale);c.strokeStyle='#142c3c';c.lineWidth=5*scale;c.stroke();
       rounded(x-75*scale,y-30*scale,150*scale,115*scale,10*scale,'#c1cbce');ellipse(x,y-30*scale,75*scale,44*scale,'#dae1df');ellipse(x,y+81*scale,75*scale,10*scale,'#71858e');
@@ -28,9 +28,9 @@ export function createFlatScene(host){
       for(let i=0;i<3;i++)rounded(x-33*scale-i*3*scale,y+83*scale+i*7*scale,(66+i*6)*scale,7*scale,1*scale,'#9cadb4');
       segment([x+105*scale,y+55*scale],[x+105*scale,y-85*scale],'#b1c1c8',7*scale);c.save();c.translate(x+105*scale,y-87*scale);c.rotate(-.4);ellipse(0,0,30*scale,12*scale,'#d1dbd9');segment([0,0],[0,-28*scale],'#d3b96c',3*scale);c.restore();
       rounded(px-6*scale,py,12*scale,100*scale,3*scale,'#243e52');ellipse(px,py+100*scale,30*scale,10*scale,'#899ea9');
-      c.save();c.translate(px,py);c.rotate(-state.angle);rounded(-95*scale,-25*scale,190*scale,58*scale,4*scale,'#b1c7d1');rounded(-90*scale,-21*scale,180*scale,49*scale,2*scale,'#19457b');
+      c.save();c.translate(px,py);c.rotate(state.angle);rounded(-95*scale,-25*scale,190*scale,58*scale,4*scale,'#b1c7d1');rounded(-90*scale,-21*scale,180*scale,49*scale,2*scale,'#19457b');
       for(let i=1;i<8;i++)segment([(-90+i*22.5)*scale,-21*scale],[(-90+i*22.5)*scale,28*scale],'#5d8dc5',.8*scale);for(let i=1;i<3;i++)segment([-90*scale,(-21+i*16)*scale],[90*scale,(-21+i*16)*scale],'#5d8dc5',.8*scale);c.restore();
-      if(state.locked||state.phase==='success')for(let i=0;i<9;i++){const t=(time*(reduced?.08:.25)+i/9)%1;ellipse(px+(x-55*scale-px)*t,py+95*scale-50*scale*t+Math.sin(t*Math.PI)*20*scale,3*scale,3*scale,'#80efc9');}
+      if(state.phase==='playing'&&state.alignment>.05||state.phase==='success')for(let i=0;i<9;i++){const t=(time*(reduced?.08:.25*Math.max(.1,state.alignment))+i/9)%1;ellipse(px+(x-55*scale-px)*t,py+95*scale-50*scale*t+Math.sin(t*Math.PI)*20*scale,3*scale,3*scale,'#80efc9');}
       const ax=x-107*scale,ay=y+52*scale;rounded(ax-9*scale,ay-22*scale,18*scale,28*scale,5*scale,'#e1e7e5');ellipse(ax,ay-35*scale,13*scale,13*scale,'#e1e7e5');ellipse(ax+2*scale,ay-35*scale,9*scale,8*scale,'#bba465');segment([ax-5*scale,ay+5*scale],[ax-7*scale,ay+22*scale],'#d6dfdf',7*scale);segment([ax+5*scale,ay+5*scale],[ax+7*scale,ay+22*scale],'#d6dfdf',7*scale);
       const wave=state.phase==='success';segment([ax-10*scale,ay-16*scale],[ax-22*scale,ay+(wave?-35+Math.sin(time*5)*3:-3)*scale],'#d6dfdf',6*scale);
       if(wave&&!reduced)for(let i=0;i<60;i++){const a=i*2.4+time*.15,r=(40+(time*40+i*9)%170)*scale;ellipse(x+Math.cos(a)*r,y-30*scale+Math.sin(a)*r*.6,2*scale,2*scale,i%2?'#80efc9':'#f5cc62');}
