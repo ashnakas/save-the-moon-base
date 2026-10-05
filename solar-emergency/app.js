@@ -1,5 +1,5 @@
 import {freshMission,stepMission,alignmentFor,LIMIT} from './mission.js?v=4';
-import {createHandControl} from './camera.js?v=4';
+import {createHandControl} from './camera.js?v=5';
 
 const $=id=>document.getElementById(id);
 const ui={welcome:$('welcome'),hud:$('mission-hud'),result:$('result'),camera:$('camera-card')};
