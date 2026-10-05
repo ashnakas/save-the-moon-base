@@ -19,7 +19,7 @@ From the repository folder, use a static HTTP server, for example `python3 -m ht
 - `index.html`, `style.css`: exhibit interface and responsive layout.
 - `app.js`: mission flow, controls, recovery, sound, and lifecycle.
 - `mission.js`: elapsed-time charging and completion rules.
-- `scene.js`: Three.js procedural 3D lunar environment.
+- `scene.js`: Three.js procedural 3D lunar environment. `scene-flat.js` provides an automatic Canvas fallback when 3D graphics are unavailable.
 - `camera.js`: local MediaPipe hand inference and camera lifecycle.
 - `vendor/`: pinned Three.js 0.180.0 and MediaPipe Tasks Vision 0.10.21, with their upstream licenses.
 
