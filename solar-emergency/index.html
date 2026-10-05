@@ -1,0 +1,47 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+  <meta name="theme-color" content="#071321">
+  <title>Save the Moon Base · Solar Emergency</title>
+  <meta name="description" content="A hands-on lunar mission. Move your hand to aim a solar array and bring a Moon base back to life.">
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='16' fill='%23071321'/%3E%3Ccircle cx='32' cy='32' r='20' fill='%23f5cc62'/%3E%3Ccircle cx='40' cy='25' r='18' fill='%23071321'/%3E%3C/svg%3E">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <main id="experience">
+    <div id="scene" tabindex="0" aria-label="Lunar solar mission. Move left and right, or use arrow keys, to tilt the solar panel."></div>
+    <div class="vignette" aria-hidden="true"></div>
+    <header>
+      <a class="brand" href="./" aria-label="Save the Moon Base home"><span class="brand-mark" aria-hidden="true">◒</span><span>SAVE THE<br><strong>MOON BASE</strong></span></a>
+      <div class="mission-id">MISSION 01 <span>/</span> SOLAR EMERGENCY</div>
+      <div class="tools"><button id="sound" aria-pressed="false" aria-label="Turn sound on">Sound off</button><button id="fullscreen" aria-label="Enter full screen">Full screen</button></div>
+    </header>
+
+    <section id="welcome" class="intro" aria-labelledby="intro-title">
+      <p class="eyebrow"><span class="alert-dot"></span> INCOMING DISTRESS SIGNAL</p>
+      <h1 id="intro-title">A little movement.<br>A giant <em>rescue.</em></h1>
+      <p class="intro-copy">The Moon base has lost power.<br>Use your hand to catch the sunlight<br>and bring it back to life.</p>
+      <div class="start-actions"><button id="camera-start" class="primary">Play with your webcam</button><button id="pointer-start" class="secondary">Play with mouse or touch</button></div>
+      <p class="privacy">Camera stays on your device. Nothing is recorded.</p>
+      <p class="setup-note" id="setup-note" role="status"></p>
+    </section>
+
+    <section id="mission-hud" hidden aria-label="Mission progress">
+      <div class="mission-title"><p class="eyebrow">YOUR MISSION</p><h2>Follow the Sun.<br>Fuel the base.</h2><p id="instruction">Move left and right to tilt the panel.</p></div>
+      <div class="telemetry"><div class="battery-head"><span>BASE POWER</span><strong id="power-value">0<span>%</span></strong></div><div class="battery-track" role="progressbar" aria-label="Base power" aria-valuemin="0" aria-valuemax="100" aria-valuenow="0" id="battery"><div id="power-fill"></div></div><div class="systems"><span id="sys1">○ LIGHTS</span><span id="sys2">○ COMMS</span><span id="sys3">○ HABITAT</span></div></div>
+      <div class="clock"><span>TIME LEFT</span><strong id="timer">45</strong><span>SECONDS</span></div>
+      <div id="alignment-card" class="alignment-card"><span id="lock-label">FIND THE SUNLIGHT</span><strong id="alignment-value">0%</strong><div class="alignment-track"><span id="target-marker" title="Sun direction"></span><span id="panel-marker" title="Your panel"></span></div><p id="direction-hint">Slide your hand left or right</p><label class="sr-only" for="tilt">Solar panel tilt</label><input id="tilt" type="range" min="-0.8" max="0.8" step="0.01" value="-0.6" aria-label="Solar panel tilt"></div>
+      <div class="mission-controls"><button id="switch-control">Use webcam</button><button id="restart">Restart</button><button id="exit">End mission</button></div>
+    </section>
+
+    <aside id="camera-card" hidden aria-label="Webcam hand control"><div class="camera-view"><video id="video" autoplay muted playsinline></video><canvas id="hand-overlay"></canvas><span id="tracking-label">Looking for your hand</span></div><p id="camera-tip">Show one open hand. Move it left and right.</p><button id="stop-camera">Turn camera off</button></aside>
+    <div id="announcement" class="announcement" role="status" aria-live="polite"></div>
+    <section id="result" class="result" hidden aria-labelledby="result-title"><p class="eyebrow" id="result-eyebrow">SIGNAL RECEIVED · BASE ONLINE</p><h2 id="result-title">Moon base<br><em>back online!</em></h2><p id="result-copy">Lights on. Crew safe. Nice work, astronaut.</p><div class="fact"><span>YOUR ENGINEERING DISCOVERY</span><p>Solar panels collect more energy when sunlight hits them straight on. You changed the angle to catch more light!</p><small>A simplified NASA-inspired learning experience.</small></div><button id="again" class="primary">Another mission</button><p id="reset-countdown" class="reset-countdown"></p></section>
+    <footer><span>EARTH → MOON <i></i> YOU'RE THE CONNECTION</span><span>Independent outreach prototype · Ashna Kasireddy</span></footer>
+    <div id="loading" class="loading" role="status">Preparing your lunar landing…</div>
+    <noscript><p class="loading">Enable JavaScript to play this mission.</p></noscript>
+  </main>
+  <script type="module" src="app.js"></script>
+</body>
+</html>

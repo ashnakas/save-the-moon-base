@@ -21,22 +21,14 @@ jobs:
       - name: Check out repository
         uses: actions/checkout@v4
 
-      - name: Set up pnpm
-        uses: pnpm/action-setup@v4
-        with:
-          version: 11.25.0
-
-      - name: Set up Node
-        uses: actions/setup-node@v4
-        with:
-          node-version: 22
-          cache: pnpm
-
-      - name: Install dependencies
-        run: pnpm install --frozen-lockfile
-
-      - name: Build static site
-        run: pnpm build
+      - name: Package the browser experiences
+        run: |
+          mkdir -p out
+          cp index.html out/index.html
+          cp -R public/. out/
+          cp -R vendor out/vendor
+          cp -R solar-emergency out/solar-emergency
+          touch out/.nojekyll
 
       - name: Configure Pages
         uses: actions/configure-pages@v5
